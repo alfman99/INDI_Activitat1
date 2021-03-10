@@ -120,10 +120,10 @@ void MyGLWidget::transformacioMuntanya(double h, double xPos, float transparenci
     // Codi per a la TG necessària
     glm::mat4 transform (1.0f);
 
-    transform = glm::translate(transform, glm::vec3(-1.0f, -1.0f, 0.0f));
-    transform = glm::scale(transform, glm::vec3(0.5f, h, 0.0f));
-    transform = glm::translate(transform, glm::vec3(3.0f, 1.0f, 0.0f));
-    transform = glm::translate(transform, glm::vec3(xPos*2, 0.0f, 0.0f));
+    // No entiendo porque se deberia escribir al reves
+    transform = glm::translate(transform, glm::vec3(-1.0f, -1.0f, 0.0f));           // Mover al origen de coordenadas
+    transform = glm::scale(transform, glm::vec3(0.5f, h, 0.0f));                    // Escalar el triangulo segun la variable h (altura)
+    transform = glm::translate(transform, glm::vec3(xPos*2 + 3.0f, 1.0f, 0.0f));    // Re posicionar en la altura y x dadas
 
     glUniform1f(transparenciaLoc, transparencia);
 
@@ -136,7 +136,7 @@ void MyGLWidget::transformacioMuntanya(double h, double xPos, float transparenci
 void MyGLWidget::transformacioBaseGronxador(){
 
     // Codi per a la TG necessària
-    glm::mat4 transform (1.0f);
+    glm::mat4 transform (1.0f);                                                     // Reiniciamos la transformación
 
     // recordeu enviar-li a Open-GL !!
     glUniformMatrix4fv(transLoc, 1, GL_FALSE, &transform[0][0]);
@@ -149,10 +149,10 @@ void MyGLWidget::transformacioGronxador(){
     // Codi per a la TG necessària
     glm::mat4 transform (1.0f);
     
-    transform = glm::translate(transform, glm::vec3(0.0f, -0.8f, 0.0f));
-    transform = glm::rotate(transform, this->anglePalanca, glm::vec3(0.0f, 0.0f, 1.0f));
-    transform = glm::scale(transform, glm::vec3(0.8f, 0.1f, 0.0f));
-    transform = glm::translate(transform, glm::vec3(0.0f, 0.5f, 0.0f));
+    transform = glm::translate(transform, glm::vec3(0.0f, -0.8f, 0.0f));                  // Bajamos hasta el puto sobre el que queremos rotar
+    transform = glm::rotate(transform, this->anglePalanca, glm::vec3(0.0f, 0.0f, 1.0f));  // Rotamos el balancín
+    transform = glm::scale(transform, glm::vec3(0.8f, 0.1f, 0.0f));                       // Lo hacemos alargado como indica el enunciado
+    transform = glm::translate(transform, glm::vec3(0.0f, 0.5f, 0.0f));                   // Movemos el balancín a la posición final
         
     
     // recordeu enviar-li a Open-GL !!
@@ -164,15 +164,15 @@ void MyGLWidget::transformacioPes(int left){
     // Codi per a la TG necessària
     glm::mat4 transform (1.0f);
     
-    transform = glm::translate(transform, glm::vec3(0.0f, -0.8f, 0.0f));
-    transform = glm::rotate(transform, this->anglePalanca, glm::vec3(0.0f, 0.0f, 1.0f));
-    transform = glm::scale(transform, glm::vec3(0.1f, 0.1f, 0.0f));
+    transform = glm::translate(transform, glm::vec3(0.0f, -0.8f, 0.0f));                  // Bajamos hasta el puto sobre el que queremos rotar
+    transform = glm::rotate(transform, this->anglePalanca, glm::vec3(0.0f, 0.0f, 1.0f));  // Rotamos las cajas
+    transform = glm::scale(transform, glm::vec3(0.1f, 0.1f, 0.0f));                       // Escalamos las cajas al tamaño que indica el enunciado
 
-    if (left == 1) {
-      transform = glm::translate(transform, glm::vec3(-3.5f, 1.5f, 0.0f));
+    if (left == 1) {                                                                      // Si left == 1 significa que estamos en la caja de la izquierda
+      transform = glm::translate(transform, glm::vec3(-3.5f, 1.5f, 0.0f));                // movemos la caja a la zona izquierda
     }
     else {
-      transform = glm::translate(transform, glm::vec3(3.5f, 1.5f, 0.0f));
+      transform = glm::translate(transform, glm::vec3(3.5f, 1.5f, 0.0f));                 // movemos la caja a la zona derecha
     }
     
 
