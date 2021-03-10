@@ -6,4 +6,4 @@
 2. make
 3. ./Exercici_bloc1
 
-Move with key s and key d
+Move with key a and key d
